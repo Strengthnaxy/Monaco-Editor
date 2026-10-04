@@ -1,0 +1,28 @@
+[package]
+name = "qwen-editor"
+version = "0.1.0"
+description = "Легковесный редактор кода на Rust с AI-помощником Qwen"
+authors = ["you"]
+license = "MIT"
+repository = ""
+edition = "2021"
+
+# См. https://doc.rust-lang.org/cargo/reference/manifest.html для подробностей
+
+[build-dependencies]
+tauri-build = { version = "1.5", features = [] }
+
+[dependencies]
+# Основной фреймворк Tauri
+tauri = { version = "1.5", features = ["dialog-all", "fs-all", "shell-open"] }
+# Для сериализации и десериализации структур (общение с JS)
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Опционально: для реальных HTTP-запросов к API Qwen в будущем
+# reqwest = { version = "0.11", features = ["json", "blocking"] }
+
+[features]
+# Эта функция используется для продакшн-сборки
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]
